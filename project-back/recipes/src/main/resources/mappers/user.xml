@@ -5,6 +5,15 @@
 
 <mapper namespace="com.recipes.recipes.repository.UserMapper">
 
+    <resultMap id="UserResultMap" type="com.recipes.recipes.entity.User">
+        <id property="userId" column="user_id" />
+        <result property="username" column="username" />
+        <result property="password" column="password" />
+        <result property="email" column="email" />
+        <result property="createDate" column="create_date" />
+        <result property="updateDate" column="update_date" />
+    </resultMap>
+
     <insert id="saveUser"
             parameterType="com.recipes.recipes.entity.User"
             keyProperty="userId"
@@ -15,6 +24,18 @@
         values
             (0, #{username}, #{password}, #{email}, now(), now())
     </insert>
+
+    <select id="findUserByUsername"
+            parameterType="String"
+            resultMap="UserResultMap"
+    >
+        select
+            email
+        from
+            user_tb
+        where
+            username = #{username}
+    </select>
 
 
 </mapper>

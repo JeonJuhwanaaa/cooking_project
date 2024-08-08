@@ -1,5 +1,6 @@
 package com.recipes.recipes.service;
 
+import com.recipes.recipes.dto.SigninReqDto;
 import com.recipes.recipes.dto.SignupReqDto;
 import com.recipes.recipes.entity.User;
 import com.recipes.recipes.repository.UserMapper;
@@ -25,6 +26,12 @@ public class AuthService {
         successCount += userMapper.saveUser(user);
         System.out.println(successCount);
         return successCount;
+    }
+
+    // 로그인
+    public String signin(SigninReqDto signinReqDto) {
+        User user = userMapper.findUserByUsername(signinReqDto.getUsername());
+        return user.getEmail();
     }
 
 }
